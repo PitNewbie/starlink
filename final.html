@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>starlink.wa - Smart WA Link Generator</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <nav>
+      <div class="logo">starlink<span>.wa</span></div>
+      
+      <ul class="nav-links" id="navMenu">
+        <li><a href="#dashboard" onclick="closeMenu()">Dashboard</a></li>
+        <li><a href="#rincian" onclick="closeMenu()">Rincian Fitur</a></li>
+      </ul>
+
+      <div class="nav-right">
+        <!-- Tombol Beli Kopi di Navbar -->
+        <button class="btn-coffee" onclick="bukaModalKopi()">☕ Traktir Kopi</button>
+        <div class="hamburger" onclick="toggleMenu()">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- HALAMAN UTAMA WEB -->
+<div id="mainApp">
+
+  <section id="dashboard">
+    <div class="container">
+      <h1>Samarkan Nomor, <span>starlink.wa</span></h1>
+      <p class="sub-title">Sistem cerdas untuk menyamarkan kontak WhatsApp menjadi tautan aman & profesional.</p>
+      
+      <div class="generator-card">
+        <div class="form-group">
+          <label for="waNumber">Nomor WhatsApp</label>
+          <input type="number" id="waNumber" class="form-control" placeholder="628123456789 (Awali 62)">
+        </div>
+        <div class="form-group">
+          <label for="waMessage">Pesan Otomatis (Opsional)</label>
+          <textarea id="waMessage" class="form-control" placeholder="Halo, saya ingin bertanya..."></textarea>
+        </div>
+        <button class="btn btn-yellow" onclick="generateLink()">create a link</button>
+
+        <div class="result-box" id="resultBox">
+          <label>Tautan Anda Siap:</label>
+          <div class="link-display" id="generatedLink"></div>
+          <button class="btn btn-outline" id="copyBtn" onclick="copyManual()">Salin Tautan</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="rincian">
+    <div class="container">
+      <h2 class="section-title">Kenapa Pakai starlink.wa?</h2>
+      <p class="section-sub">Solusi paling tepat untuk membagikan kontak WhatsApp kamu ke internet tanpa perlu mengekspos nomor aslinya secara langsung.</p>
+
+      <div class="grid-3">
+        <div class="feature-box">
+          <div class="feature-icon">🛡️</div>
+          <h3>Privasi Nomor Terjaga</h3>
+          <p>Nomor HP kamu disamarkan dengan enkripsi Base64 yang aman, mencegah scraping dan pencurian data oleh bot otomatis.</p>
+        </div>
+        <div class="feature-box">
+          <div class="feature-icon">⚡</div>
+          <h3>Redirect Super Cepat</h3>
+          <p>Begitu tautan diklik, sistem langsung mengarahkan pengunjung ke aplikasi WhatsApp tanpa proses loading yang mengganggu.</p>
+        </div>
+        <div class="feature-box">
+          <div class="feature-icon">🎨</div>
+          <h3>Desain Elegan</h3>
+          <p>Antarmuka bertema dark modern yang bersih, membuat tautan bisnis kamu terlihat lebih terpercaya dan profesional.</p>
+        </div>
+        <div class="feature-box">
+          <div class="feature-icon">📝</div>
+          <h3>Pesan Templat Otomatis</h3>
+          <p>Bisa menyisipkan pesan pembuka secara otomatis agar pelanggan cukup sekali klik tanpa perlu mengetik ulang.</p>
+        </div>
+        <div class="feature-box">
+          <div class="feature-icon">🔗</div>
+          <h3>Tautan Rapi & Ringkas</h3>
+          <p>Menyembunyikan deretan angka nomor HP sehingga tampilan tautan di bio media sosial terlihat jauh lebih estetik.</p>
+        </div>
+        <div class="feature-box">
+          <div class="feature-icon">🆓</div>
+          <h3>100% Gratis Digunakan</h3>
+          <p>Semua fitur penyamaran nomor ini dapat diakses secara penuh tanpa biaya langganan atau pembatasan kuota.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 starlink.wa. Secure WhatsApp Link Router.</p>
+      <p style="margin-top: 5px; font-size: 12px;">Suka dengan tools ini? <a class="footer-link" onclick="bukaModalKopi()">☕ Traktir Admin Kopi</a></p>
+    </div>
+  </footer>
+
+</div>
+
+<!-- SCREEN REDIRECT WA (Hanya muncul jika ada param ?id=) -->
+<div id="redirectView">
+  <div class="spinner"></div>
+  <h3 style="font-size: 18px; color: #fff;">Menghubungkan ke WhatsApp...</h3>
+  <p style="font-size: 13px; color: #aaa; margin-top: 8px;">Mengalihkan Anda ke percakapan yang aman.</p>
+</div>
+
+<!-- MODAL POPUP TRAKTIR KOPI -->
+<div class="modal-overlay" id="modalKopi">
+  <div class="modal-card">
+    <span class="close-modal" onclick="tutupModalKopi()">&times;</span>
+    <h2>Bantu Admin Ngopi ☕</h2>
+    <p class="desc">Dukung pengembangan starlink.wa agar terus gratis, bebas iklan, dan servernya tetap hidup.</p>
+    
+    <div class="qr-container">
+      <!-- GANTI URL SRC DI BAWAH INI DENGAN LINK GAMBAR QRIS ASLI ABANG NANTI -->
+      <img id="gambarQRIS" src="qr.png" alt="QRIS Admin">
+    </div>
+
+    <div class="rincian-donasi">
+      <p>Menerima Dari: <span>All Payment (QRIS)</span></p>
+      <p>Minimal Donasi: <span>Seikhlasnya</span></p>
+      <p>Atas Nama: <span>Admin starlink.wa</span></p>
+    </div>
+
+    <button class="btn btn-yellow" onclick="downloadQRIS()">📥 Download QRIS</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
